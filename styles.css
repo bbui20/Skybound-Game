@@ -1,0 +1,326 @@
+:root {
+  color-scheme: light;
+  --ink: #101518;
+  --cloud: rgba(255, 255, 255, 0.75);
+  --line: rgba(16, 21, 24, 0.25);
+  --button: #d35400;
+  --button-dark: #a04000;
+  --gold: #f39c12;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 230, 200, 0.8), transparent 20rem),
+    linear-gradient(180deg, #8baabf 0%, #bacdd8 58%, #6b757b 58%, #464e52 100%);
+  color: var(--ink);
+  font-family: ui-rounded, "Avenir Next", "Trebuchet MS", system-ui, sans-serif;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+.shell {
+  display: grid;
+  height: 100%;
+  min-height: 100%;
+  place-items: center;
+  padding: clamp(10px, 3vw, 28px);
+}
+
+.game-frame {
+  position: relative;
+  width: min(100%, 54vh, 432px);
+  max-height: calc(100vh - 20px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 4px solid rgba(16, 21, 24, 0.72);
+  border-radius: 8px;
+  background: #a2bad0;
+  box-shadow: 0 28px 80px rgba(8, 20, 24, 0.4);
+  touch-action: manipulation;
+  user-select: none;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+}
+
+.hud,
+.controls,
+.panel {
+  position: absolute;
+  z-index: 2;
+}
+
+.hud {
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.score-card {
+  display: grid;
+  min-width: 74px;
+  padding: 7px 10px 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cloud);
+  box-shadow: 0 8px 18px rgba(16, 36, 47, 0.12);
+}
+
+.label {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  opacity: 0.68;
+}
+
+.score-card strong {
+  line-height: 1;
+  font-size: 1.45rem;
+}
+
+.controls {
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.icon-button,
+.primary-button {
+  border: 0;
+  cursor: pointer;
+  transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease;
+}
+
+.icon-button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cloud);
+  box-shadow: 0 8px 18px rgba(16, 36, 47, 0.12);
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.primary-button {
+  display: inline-flex;
+  min-width: 132px;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ff7676 0%, var(--button) 58%, var(--button-dark) 100%);
+  box-shadow: 0 8px 0 #842333, 0 18px 26px rgba(38, 29, 24, 0.25);
+  color: white;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.28);
+}
+
+.icon-button:hover,
+.primary-button:hover {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+}
+
+.icon-button:active,
+.primary-button:active {
+  transform: translateY(2px);
+}
+
+.panel {
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 20px;
+  padding: 26px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0), rgba(40, 50, 60, 0.4));
+}
+
+.panel.is-hidden {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.panel h1 {
+  margin: 0;
+  color: #fff6cb;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: clamp(2.5rem, 13vw, 4.35rem);
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 0.92;
+  text-align: center;
+  text-shadow:
+    0 4px 0 #c16d2f,
+    0 8px 0 #793b26,
+    0 14px 22px rgba(27, 44, 39, 0.34);
+}
+
+@media (max-width: 420px) {
+  .shell {
+    padding: 0;
+  }
+
+  .game-frame {
+    width: 100vw;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .score-card {
+    min-width: 64px;
+  }
+
+  .icon-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Character Selection */
+.character-select {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 26px;
+  /*background: rgba(30, 40, 50, 0.92);*/
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.character-select.is-hidden {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.character-select h2 {
+  margin: 0;
+  color: #fff6cb;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 1000;
+  text-align: center;
+  text-shadow:
+    0 4px 0 #c16d2f,
+    0 8px 0 #793b26,
+    0 14px 22px rgba(27, 44, 39, 0.34);
+}
+
+.character-options {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.character-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 140px;
+  min-height: 200px;
+  padding: 18px 16px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 200ms ease;
+  font-weight: 700;
+  text-align: center;
+}
+
+.character-btn .character-icon {
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center;
+}
+
+.character-btn .character-icon img {
+  width: 64px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.character-btn small {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+.character-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(16, 36, 47, 0.2);
+  filter: brightness(1.05);
+}
+
+.character-btn.selected {
+  border-color: var(--button);
+  background: linear-gradient(135deg, rgba(255, 222, 100, 0.5), rgba(255, 118, 118, 0.3));
+  box-shadow: 0 0 16px rgba(211, 84, 0, 0.4);
+  transform: scale(1.05);
+}
+
+.character-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Coin Counter */
+.coin-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 18px rgba(16, 36, 47, 0.12);
+  font-weight: 900;
+  font-size: 1.1rem;
+  z-index: 3;
+}
+
+.coin-counter span:first-child {
+  font-size: 1.5rem;
+}
+
+.coin-counter span:last-child {
+  opacity: 0.6;
+}
+

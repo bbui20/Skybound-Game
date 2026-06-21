@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Skybound</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell" aria-label="Flappy Bird game">
+      <section class="game-frame">
+        <canvas id="game" width="432" height="768" aria-label="Flappy Bird canvas"></canvas>
+
+        <div class="hud" aria-live="polite">
+          <div class="score-card">
+            <span class="label">Score</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="score-card">
+            <span class="label">Best</span>
+            <strong id="best">0</strong>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="pause" class="icon-button" type="button" aria-label="Pause">
+            <span aria-hidden="true">II</span>
+          </button>
+          <button id="mute" class="icon-button" type="button" aria-label="Mute">
+            <span aria-hidden="true">♪</span>
+          </button>
+        </div>
+
+        <div id="panel" class="panel">
+          <h1>Skybound</h1>
+          <button id="start" class="primary-button" type="button">
+            <span aria-hidden="true">▶</span>
+            <span>Start</span>
+          </button>
+        </div>
+
+        <div id="characterSelect" class="character-select is-hidden">
+          <h2>Choose Character</h2>
+          <div class="character-options">
+            <button class="character-btn" id="char-dove" data-character="dove">
+              <div class="character-icon"><img src="img/pigeonoben.png" alt="Taube" /></div>
+              <span>Pigeon</span>
+              <small>Available</small>
+            </button>
+            <button class="character-btn" id="char-dragon" data-character="dragon">
+              <div class="character-icon"><img src="img/dragonoben.png" alt="Dragon" /></div>
+              <span>Dragon</span>
+              <small id="dragon-status">Locked</small>
+            </button>
+            <button class="character-btn" id="char-fly" data-character="fly">
+              <div class="character-icon"><img src="img/flyoben.png" alt="Fly" /></div>
+              <span>Fly</span>
+              <small id="fly-status">Locked</small>
+            </button>
+            <button class="character-btn" id="char-bat" data-character="bat">
+              <div class="character-icon"><img src="img/batoben.png" alt="Bat" /></div>
+              <span>Bat</span>
+              <small id="bat-status">Locked</small>
+            </button>
+          </div>
+          <button id="startGame" class="primary-button" type="button">
+            <span>Play</span>
+          </button>
+        </div>
+
+        <div class="coin-counter">
+          <span>🍕</span>
+          <span id="coins">0</span>
+          <span id="coin-target">/4</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
